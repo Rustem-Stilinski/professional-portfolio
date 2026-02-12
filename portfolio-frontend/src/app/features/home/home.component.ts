@@ -58,16 +58,15 @@ import { Project, Skill, Experience, Education, ContactMessage } from '../../cor
         
         <div *ngIf="loading.skills" class="spinner"></div>
         
-        <div *ngIf="!loading.skills">
+        <div *ngIf="!loading.skills" class="skills-container">
           <div *ngFor="let category of skillCategories" class="skill-category">
             <h3>{{ category }}</h3>
-            <div class="skills-grid">
-              <div *ngFor="let skill of getSkillsByCategory(category)" class="skill-item">
-                <span class="skill-name">{{ skill.name }}</span>
-                <div class="skill-bar">
-                  <div class="skill-level" [style.width.%]="skill.proficiencyLevel"></div>
-                </div>
-              </div>
+            <div class="skills-cloud">
+              <span *ngFor="let skill of getSkillsByCategory(category)" 
+                    class="skill-badge"
+                    [attr.data-level]="getSkillLevel(skill.proficiencyLevel)">
+                {{ skill.name }}
+              </span>
             </div>
           </div>
         </div>
@@ -292,6 +291,13 @@ export class HomeComponent implements OnInit {
 
   getSkillsByCategory(category: string): Skill[] {
     return this.skills.filter(s => s.category === category);
+  }
+
+  getSkillLevel(proficiency: number): string {
+    if (proficiency >= 80) return 'expert';
+    if (proficiency >= 60) return 'advanced';
+    if (proficiency >= 40) return 'intermediate';
+    return 'beginner';
   }
 
   formatDate(date: Date | undefined): string {
