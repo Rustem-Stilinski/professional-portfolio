@@ -1,13 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ApiService } from '../../core/services/api.service';
 import { Project } from '../../core/models/portfolio.models';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule],
   template: `
     <section class="section">
       <div class="container">
@@ -50,30 +49,44 @@ import { Project } from '../../core/models/portfolio.models';
     .page-title {
       text-align: center;
       margin-bottom: 1rem;
-      font-size: 2.5rem;
+      font-size: 3rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+      letter-spacing: -0.02em;
     }
 
     .page-subtitle {
       text-align: center;
-      color: var(--secondary-color);
-      margin-bottom: 3rem;
-      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 4rem;
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
     }
 
     .project-card {
       display: flex;
       flex-direction: column;
       height: 100%;
+      transition: all var(--transition-base);
     }
 
     .project-card h3 {
       color: var(--primary-color);
       margin-bottom: 1rem;
+      font-size: 1.5rem;
     }
 
     .project-card p {
       flex-grow: 1;
       margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
     }
 
     .project-details {
@@ -84,12 +97,13 @@ import { Project } from '../../core/models/portfolio.models';
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
     }
 
     .project-footer {
-      padding-top: 1rem;
-      border-top: 1px solid var(--border-color);
+      padding-top: 0;
     }
 
     .project-links {
@@ -98,23 +112,54 @@ import { Project } from '../../core/models/portfolio.models';
     }
 
     .link-button {
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--primary-color);
+      flex: 1;
+      padding: 0.625rem 1.25rem;
+      border: 2px solid var(--primary-color);
       color: var(--primary-color);
-      border-radius: 0.375rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
+      border-radius: var(--radius-lg);
+      font-weight: 600;
+      transition: all var(--transition-base);
+      text-align: center;
+      font-size: 0.9375rem;
     }
 
     .link-button:hover {
-      background-color: var(--primary-color);
+      background: var(--gradient-primary);
       color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
     }
 
     .empty-state {
       text-align: center;
-      padding: 4rem 0;
-      color: var(--secondary-color);
+      padding: 5rem 0;
+      color: var(--text-secondary);
+    }
+
+    .empty-state p {
+      font-size: 1.125rem;
+    }
+
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 2.25rem;
+      }
+
+      .page-subtitle {
+        font-size: 1.125rem;
+        margin-bottom: 3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-title {
+        font-size: 1.875rem;
+      }
+
+      .page-subtitle {
+        font-size: 1rem;
+      }
     }
   `]
 })
