@@ -109,24 +109,43 @@ import { Project, Skill, Experience, Education, ContactMessage } from '../../cor
         
         <div *ngIf="loading.education" class="spinner"></div>
         
-        <div *ngIf="!loading.education" class="grid grid-2">
-          <div *ngFor="let edu of education" class="card">
-            <h3>{{ edu.degree }}</h3>
-            <h4>{{ edu.institution }}</h4>
-            <p *ngIf="edu.fieldOfStudy">{{ edu.fieldOfStudy }}</p>
-            <p class="education-date">
-              {{ formatDate(edu.startDate) }} - {{ edu.isCurrentlyEnrolled ? 'Present' : formatDate(edu.endDate) }}
-            </p>
-            <div *ngIf="edu.coursework.length > 0">
-              <h5>Relevant Coursework:</h5>
-              <ul>
-                <li *ngFor="let course of edu.coursework">{{ course }}</li>
-              </ul>
+        <div *ngIf="!loading.education" class="education-grid">
+          <div *ngFor="let edu of education" class="education-card">
+            <div class="education-header">
+              <div class="education-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
+                </svg>
+              </div>
+              <div class="education-info">
+                <h3 class="education-degree">{{ edu.degree }}</h3>
+                <h4 class="education-institution">{{ edu.institution }}</h4>
+                <p class="education-field" *ngIf="edu.fieldOfStudy">{{ edu.fieldOfStudy }}</p>
+              </div>
+            </div>
+            
+            <div class="education-date">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <span>{{ formatDate(edu.startDate) }} - {{ edu.isCurrentlyEnrolled ? 'Present' : formatDate(edu.endDate) }}</span>
+            </div>
+            
+            <div *ngIf="edu.coursework.length > 0" class="education-coursework">
+              <h5>Relevant Coursework</h5>
+              <div class="coursework-tags">
+                <span *ngFor="let course of edu.coursework" class="coursework-tag">
+                  {{ course }}
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
 
     <!-- Contact Section -->
     <section id="contact" class="section">
